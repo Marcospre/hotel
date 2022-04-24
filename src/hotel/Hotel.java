@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Hotel {
@@ -8,17 +9,27 @@ public class Hotel {
 	private String direccion;
 	private String valoracion;
 	private List<Trabajador> misTrabajadores;
-	private List<Habitacion> individuales;
-	private	List<Habitacion> dobles;
-    private List<Habitacion> familiares;
-    private List<Habitacion> lujo;
+	private List<Habitacion> misHabitaciones;
+	 List<Habitacion> individuales = new LinkedList<Habitacion>();
+	List<Habitacion> dobles = new LinkedList<Habitacion>();
+    private List<Habitacion> familiares = new LinkedList<Habitacion>();
+    private List<Habitacion> lujo = new LinkedList<Habitacion>();
 	List<Reserva> misReservas;
-
-	public Hotel(String nombre, String valo, String dire, List<Trabajador> misTrabajadores, List<Administrador> misAdminis) {
+	
+	
+	public Hotel(String nombre, String valo, String dire) {
+		this.nombre = nombre;
+		this.valoracion = valo;
+		this.direccion = dire;
+	}
+	public Hotel(String nombre, String valo, String dire, List<Trabajador> misTrabajadores, List<Habitacion> misHabitaciones, List<Reserva> misReservas) {
 		this.nombre = nombre;
 		this.valoracion = valo;
 		this.direccion = dire;
 		this.misTrabajadores = misTrabajadores;
+		this.misHabitaciones = misHabitaciones;
+		this.misReservas = misReservas;
+		
 	}
 
 	public String getNombre() {
@@ -47,20 +58,20 @@ public class Hotel {
 	public boolean comprobarHabitacion(String tipo, int numero) {
 		boolean res = false;
 		
-		if(tipo.equals(individuales.getClass().getName())) {
+		if(tipo.equals("Individuales")) {
 			if(numero <= getLibres(individuales)) {
 				res = true;
 
 			}
-		}else if(tipo.equals(dobles.getClass().getName())) {
+		}else if(tipo.equals("Dobles")) {
 			if(numero <= getLibres(dobles)) {
 				res = true;
 			}
-		}else if(tipo.equals(familiares.getClass().getName())) {
+		}else if(tipo.equals("Familiares")) {
 			if(numero <= getLibres(familiares)) {
 				res = true;
 			}
-		}else if(tipo.equals(lujo.getClass().getName())) {
+		}else if(tipo.equals("Lujo")) {
 			if(numero <= getLibres(lujo)) {
 				res = true;
 			}
@@ -80,32 +91,32 @@ public class Hotel {
 		return cont;
 	}
 	
-	public void getHabitacion(String tipo,int numero, List<Habitacion> hab_reser) {
-		if(tipo.equals(individuales.getClass().getName())) {
+	public void getHabitacion(String tipo,int numero, Reserva reser) {
+		if(tipo.equals("Individuales")) {
 			for(int i=0; i < numero; i++) {
-				if(individuales.get(i).getOcupado()) {
-					hab_reser.add(individuales.get(i));
+				if(!individuales.get(i).getOcupado()) {
+					reser.addHabitacion(individuales.get(i));
 					individuales.get(i).setOcupado(false);
 				}
 			}
-		}else if(tipo.equals(dobles.getClass().getName())) {
+		}else if(tipo.equals("Dobles")) {
 			for(int i=0; i < numero; i++) {
-				if(dobles.get(i).getOcupado()) {
-					hab_reser.add(dobles.get(i));
+				if(!dobles.get(i).getOcupado()) {
+					reser.addHabitacion(dobles.get(i));
 					dobles.get(i).setOcupado(false);
 				}
 			}
-		}else if(tipo.equals(familiares.getClass().getName())) {
+		}else if(tipo.equals("Familiares")) {
 			for(int i=0; i < numero; i++) {
-				if(familiares.get(i).getOcupado()) {
-					hab_reser.add(familiares.get(i));
+				if(!familiares.get(i).getOcupado()) {
+					reser.addHabitacion(familiares.get(i));
 					familiares.get(i).setOcupado(false);
 				}
 			}
-		}else if(tipo.equals(lujo.getClass().getName())) {
+		}else if(tipo.equals("Lujo")) {
 			for(int i=0; i < numero; i++) {
-				if(lujo.get(i).getOcupado()) {
-					hab_reser.add(lujo.get(i));
+				if(!lujo.get(i).getOcupado()) {
+					reser.addHabitacion(lujo.get(i));
 					lujo.get(i).setOcupado(false);
 				}
 			}

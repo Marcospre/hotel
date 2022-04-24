@@ -1,6 +1,10 @@
 package hotel;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Reserva {
@@ -9,20 +13,60 @@ public class Reserva {
 	private double precio;
 	private String codigo_cliente;
 	List<Habitacion> habitacion_reserva = null;
+	LocalDate fecha_entrada;
+	LocalDate fecha_salida;
+	DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm:ss");
+	DateTimeFormatter z = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
 	
+	public Reserva(String codigo,double precio, String codigo_cliente, Date fecha_e, Date fecha_s, Date fecha_i) {
+		
+		this.fecha_reserva = fecha_i.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();   
+		this.precio = precio;
+		this.codigo_cliente = codigo_cliente;
+		this.codigo = codigo;
+		this.fecha_entrada = fecha_e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.fecha_salida = fecha_s.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
 	
-	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva) {
+	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {
 		this.habitacion_reserva = habi_reserva; 
 		this.fecha_reserva = LocalDateTime.now();   
-		this.precio = calcularPrecio();
+		///this.precio = calcularPrecio();
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = generarCodigo();
+		this.fecha_entrada = fecha_e;
+		this.fecha_salida = fecha_s;
 	}
 	
 	
 	public String generarCodigo() {
 		
-		return fecha_reserva.toString();
+		return this.codigo_cliente+fecha_reserva.format(c);
+	}
+	
+	public String getCodigoCliente() {
+		return this.codigo_cliente;
+	}
+	
+	public String getCodigo() {
+		return this.codigo;
+	}
+	
+	public String getFecha() {
+		return this.fecha_reserva.format(f);
+	}
+	
+	public String getFecha_entrada() {
+		return this.fecha_entrada.format(z).toString();
+	}
+	
+	public String getFecha_salida() {
+		return this.fecha_salida.format(z).toString();
+	}
+	
+	public double getPrecio() {
+		return this.precio;
 	}
 	
 	public double calcularPrecio() {
@@ -34,6 +78,63 @@ public class Reserva {
 		
 		return total;
 		
+	}
+	
+	public void addHabitacion(Habitacion nueva) {
+		this.habitacion_reserva.add(nueva);
+	}
+	
+	public List<Habitacion> gethabitacion_reserva(){
+		return this.habitacion_reserva;
+	}
+	
+	public String mostrarInfo() {
+		this.precio = calcularPrecio();
+		String m = "Reserva\n";
+		m = m + "fecha: " + this.codigo+"\n";
+		m = m + "Cliente: "+ this.codigo_cliente+"\n";
+		m = m + "precio: " + this.precio+"\n";
+		
+		
+		return m;
+	}
+	
+	public String contarHabi() {
+		int indi = 0;
+		int doble = 0;
+		int fami = 0;
+		int lujo = 0;
+		String m = "";
+		
+		for(int i = 0; i < habitacion_reserva.size(); i++) {
+			if(habitacion_reserva.get(i).getTipo().equals("Individual")) {
+				indi++;
+			}
+			if(habitacion_reserva.get(i).getTipo().equals("Doble")) {
+				doble++;
+			}
+			if(habitacion_reserva.get(i).getTipo().equals("Familiar")) {
+				fami++;
+			}
+			if(habitacion_reserva.get(i).getTipo().equals("Lujo")) {
+				lujo++;
+			}
+		}
+		
+		if(indi != 0) {
+			m = m +"Tiene "+indi+" Habitaciones individuales\n";
+		}
+		if(doble != 0) {
+			m = m +"Tiene "+doble+" Habitaciones dobles\n";
+		}
+		if(fami != 0) {
+			m = m +"Tiene "+fami+" Habitaciones familiares\n";
+		}
+		if(lujo != 0) {
+			m = m +"Tiene "+lujo+" Habitaciones de lujo\n";
+		}
+		
+		return m;
 	}
 	
 }

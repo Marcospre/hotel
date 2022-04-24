@@ -12,8 +12,18 @@ public class Habitacion {
 	private Boolean ocupado;
 	private String descripcion;
 	private Tamaño tamaño;
+	private String nombre_hotel;
 	
-	public Habitacion(String planta, String lado, String numero, String tipo, double precio, String des, String nombre_tama) {
+	public Habitacion(String numero, String tipo, double precio, String descrip, boolean ocu, String nombre_hotel) {
+		this.numero = numero;
+		this.tipo = tipo;
+		this.precio = precio;
+		this.descripcion = descrip;
+		this.ocupado = ocu;
+		this.nombre_hotel = nombre_hotel;
+		
+	}
+	public Habitacion(String numero, String tipo, double precio, String des, String nombre_tama) {
 		this.numero = numero;
 		this.tipo = tipo;
 		this.precio = precio;
