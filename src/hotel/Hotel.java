@@ -9,7 +9,6 @@ public class Hotel {
 	private String direccion;
 	private String valoracion;
 	private List<Trabajador> misTrabajadores;
-	private List<Habitacion> misHabitaciones;
 	 List<Habitacion> individuales = new LinkedList<Habitacion>();
 	List<Habitacion> dobles = new LinkedList<Habitacion>();
     private List<Habitacion> familiares = new LinkedList<Habitacion>();
@@ -27,9 +26,24 @@ public class Hotel {
 		this.valoracion = valo;
 		this.direccion = dire;
 		this.misTrabajadores = misTrabajadores;
-		this.misHabitaciones = misHabitaciones;
+		ordenarHabitaciones(misHabitaciones);
 		this.misReservas = misReservas;
 		
+	}
+	
+	public void ordenarHabitaciones(List<Habitacion> misHabis) {
+		
+		for(int i = 0; i < misHabis.size(); i++) {
+			if(misHabis.get(i).getTipo().equals("Individual")) {
+				individuales.add(misHabis.get(i));
+			}else if(misHabis.get(i).getTipo().equals("Doble")) {
+				dobles.add(misHabis.get(i));
+			}else if(misHabis.get(i).getTipo().equals("Familiar")) {
+				familiares.add(misHabis.get(i));
+			}else {
+				lujo.add(misHabis.get(i));
+			}
+		}
 	}
 
 	public String getNombre() {
@@ -58,16 +72,16 @@ public class Hotel {
 	public boolean comprobarHabitacion(String tipo, int numero) {
 		boolean res = false;
 		
-		if(tipo.equals("Individuales")) {
+		if(tipo.equals("Individual")) {
 			if(numero <= getLibres(individuales)) {
 				res = true;
 
 			}
-		}else if(tipo.equals("Dobles")) {
+		}else if(tipo.equals("Doble")) {
 			if(numero <= getLibres(dobles)) {
 				res = true;
 			}
-		}else if(tipo.equals("Familiares")) {
+		}else if(tipo.equals("Familiar")) {
 			if(numero <= getLibres(familiares)) {
 				res = true;
 			}
@@ -92,21 +106,21 @@ public class Hotel {
 	}
 	
 	public void getHabitacion(String tipo,int numero, Reserva reser) {
-		if(tipo.equals("Individuales")) {
+		if(tipo.equals("Individual")) {
 			for(int i=0; i < numero; i++) {
 				if(!individuales.get(i).getOcupado()) {
 					reser.addHabitacion(individuales.get(i));
 					individuales.get(i).setOcupado(false);
 				}
 			}
-		}else if(tipo.equals("Dobles")) {
+		}else if(tipo.equals("Doble")) {
 			for(int i=0; i < numero; i++) {
 				if(!dobles.get(i).getOcupado()) {
 					reser.addHabitacion(dobles.get(i));
 					dobles.get(i).setOcupado(false);
 				}
 			}
-		}else if(tipo.equals("Familiares")) {
+		}else if(tipo.equals("Familiar")) {
 			for(int i=0; i < numero; i++) {
 				if(!familiares.get(i).getOcupado()) {
 					reser.addHabitacion(familiares.get(i));

@@ -16,17 +16,17 @@ public class Reserva {
 	LocalDate fecha_entrada;
 	LocalDate fecha_salida;
 	DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm:ss");
-	DateTimeFormatter z = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+	DateTimeFormatter z = DateTimeFormatter.ofPattern("YY/MM/dd");
 	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
 	
-	public Reserva(String codigo,double precio, String codigo_cliente, Date fecha_e, Date fecha_s, Date fecha_i) {
+	public Reserva(String codigo,double precio, String codigo_cliente, java.util.Date fecha_entrada2, java.util.Date fecha_salida2, java.util.Date fecha_reserva2) {
 		
-		this.fecha_reserva = fecha_i.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();   
+		this.fecha_reserva = fecha_reserva2.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();   
 		this.precio = precio;
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = codigo;
-		this.fecha_entrada = fecha_e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		this.fecha_salida = fecha_s.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.fecha_entrada = fecha_entrada2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.fecha_salida = fecha_salida2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	
 	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {

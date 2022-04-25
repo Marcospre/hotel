@@ -74,15 +74,15 @@ public class RealizarReserva implements ActionListener {
 		JPanel tipo = new JPanel();
 		tipo.setLayout(new GridLayout(6,2,10,10));
 		
-		bIndi.setActionCommand("Individuales");
+		bIndi.setActionCommand("Individual");
 		tipo.add(bIndi);
 		tipo.add(txt1);
 		
-		bIndi.setActionCommand("Dobles");
+		bIndi.setActionCommand("Doble");
 		tipo.add(bDobl);
 		tipo.add(txt2);
 		
-		bIndi.setActionCommand("Familiares");
+		bIndi.setActionCommand("Familiar");
 		tipo.add(bFami);
 		tipo.add(txt3);
 		
@@ -153,13 +153,13 @@ public class RealizarReserva implements ActionListener {
 				Reserva nuevaReserva = new Reserva(cliente.getDNI(),new LinkedList<Habitacion>(), time_entrada, time_salida);
 				
 				if(bIndi.isSelected()) {
-					Reservar("Individuales",Integer.parseInt(this.txt1.getText()),nuevaReserva);
+					Reservar("Individual",Integer.parseInt(this.txt1.getText()),nuevaReserva);
 				}
 				if(bDobl.isSelected()) {
-					Reservar("Dobles",Integer.parseInt(this.txt2.getText()),nuevaReserva);
+					Reservar("Doble",Integer.parseInt(this.txt2.getText()),nuevaReserva);
 				}
 				if(bFami.isSelected()) {
-					Reservar("Familiares",Integer.parseInt(this.txt3.getText()),nuevaReserva);
+					Reservar("Familiar",Integer.parseInt(this.txt3.getText()),nuevaReserva);
 				}
 				if(bLujo.isSelected()) {
 					Reservar("Lujo",Integer.parseInt(this.txt4.getText()),nuevaReserva);

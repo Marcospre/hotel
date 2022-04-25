@@ -14,21 +14,22 @@ public class Habitacion {
 	private Tamaño tamaño;
 	private String nombre_hotel;
 	
-	public Habitacion(String numero, String tipo, double precio, String descrip, boolean ocu, String nombre_hotel) {
+	public Habitacion(String numero, String tipo, double precio, int ocu, String nombre_hotel) {
 		this.numero = numero;
 		this.tipo = tipo;
 		this.precio = precio;
-		this.descripcion = descrip;
-		this.ocupado = ocu;
+		if(ocu == 1)
+			this.ocupado = false;
+		else
+			this.ocupado = true;
 		this.nombre_hotel = nombre_hotel;
 		
 	}
-	public Habitacion(String numero, String tipo, double precio, String des, String nombre_tama) {
+	public Habitacion(String numero, String tipo, double precio, String nombre_tama) {
 		this.numero = numero;
 		this.tipo = tipo;
 		this.precio = precio;
 		this.ocupado = false;
-		this.descripcion = des;
 	}
 	
 	public String getNumero() {
@@ -63,4 +64,9 @@ public class Habitacion {
 		return this.ocupado;
 	}
 	
+	@Override
+	
+	public String toString() {
+		return this.ocupado+"";
+	}
 }

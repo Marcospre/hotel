@@ -38,10 +38,10 @@ public class Main {
 		
 		/*Recogida de Datos*/
 
-		misClientes =  new LinkedList<Cliente>(dbf.getListaCliente().keySet());
-		misTrabajadores =  new LinkedList<Trabajador>(dbf.getListaTrabajador().keySet());
-		misHabitaciones = new LinkedList<Habitacion>(dbf.getListaHabitacion().keySet());
-		misReservas = new LinkedList<Reserva>(dbf.getListaReseva().keySet());
+		misClientes =  dbf.getListaCliente();
+		misTrabajadores = dbf.getListaTrabajador();
+		misHabitaciones = dbf.getListaHabitacion();
+		misReservas = dbf.getListaReseva();
 		Hotel miHotel = new Hotel("Tricaro", "*****","Calle ***** nº*",misTrabajadores,misHabitaciones, misReservas);
 		WindowMenu miMenu = new WindowMenu(misClientes,miHotel);
 	

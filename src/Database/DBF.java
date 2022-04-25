@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import hotel.Cliente;
@@ -62,8 +64,8 @@ public class DBF {
 	            	//URL of Oracle database server
 	                String url = "jdbc:oracle:thin:@91.200.117.27:49161:xe";       
 	                Properties props = new Properties();
-	                props.setProperty("user", "HR");
-	                props.setProperty("password", "hr");
+	                props.setProperty("user", "MARCOS");
+	                props.setProperty("password", "plaiaundi");
 	              
 	                //creating connection to Oracle database 
 	              
@@ -99,17 +101,17 @@ public class DBF {
 	  }
 	
 	//@SuppressWarnings("rawtypes")
-	public Hashtable getListaCliente()
+	public List<Cliente> getListaCliente()
 	{
 		
 		String query;
-		Hashtable ListaClientes;
+		List<Cliente> ListaClientes;
 		ResultSet resultSet;
 				
 	                
 		query = "SELECT * FROM Cliente ORDER BY DNI ASC";
 		System.out.println("SQL a ejecutar: " + query);
-		ListaClientes = new Hashtable();
+		ListaClientes = new LinkedList<Cliente>();
 	    Cliente cliente;
 	    
 		try
@@ -133,7 +135,7 @@ public class DBF {
 			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  cliente = new Cliente (DNI,Nombre, Apellidos, email, edad, Telefono, ID_trabaja);        
-			  ListaClientes.put(new Integer(DNI), cliente);  
+			  ListaClientes.add(cliente);  
 	      
 	          
 			  lineas++;
@@ -165,17 +167,17 @@ public class DBF {
 		}
 	}
 	
-	public Hashtable getListaTrabajador()
+	public List<Trabajador> getListaTrabajador()
 	{
 		
 		String query;
-		Hashtable ListaTrabajador;
+		List<Trabajador> ListaTrabajador;
 		ResultSet resultSet;
 				
 	                
 		query = "SELECT * FROM Trabajador ORDER BY DNI ASC";
 		System.out.println("SQL a ejecutar: " + query);
-		ListaTrabajador = new Hashtable();
+		ListaTrabajador = new LinkedList<Trabajador>();
 	    Trabajador trabajador;
 	    
 		try
@@ -185,7 +187,7 @@ public class DBF {
 			//	vamos a gestionar los resultados de la query
 	    
 	    int lineas=0;
-			while (resultSet.next())
+		while (resultSet.next())
 		{     
 				String DNI = resultSet.getString(1);
 				String Nombre = resultSet.getString(2);     
@@ -200,7 +202,7 @@ public class DBF {
 			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  trabajador = new Trabajador (DNI,Nombre, Apellidos, email, edad, Telefono, id, contraseña);        
-			  ListaTrabajador.put(new Integer(DNI), trabajador);  
+			  ListaTrabajador.add(trabajador);  
 	      
 	          
 			  lineas++;
@@ -232,17 +234,17 @@ public class DBF {
 		}
 	}
 	
-	public Hashtable getListaReseva()
+	public List<Reserva> getListaReseva()
 	{
 		
 		String query;
-		Hashtable ListaReserva;
+		List<Reserva> ListaReserva;
 		ResultSet resultSet;
 				
 	                
 		query = "SELECT * FROM Reserva ORDER BY codigo ASC";
 		System.out.println("SQL a ejecutar: " + query);
-		ListaReserva = new Hashtable();
+		ListaReserva = new LinkedList<Reserva>();
 	    Reserva reserva;
 	    
 		try
@@ -266,7 +268,7 @@ public class DBF {
 			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  reserva = new Reserva (codigo, precio, dni_cliente, fecha_entrada, fecha_salida, fecha_reserva);        
-			  ListaReserva.put(new Integer(codigo), reserva);  
+			  ListaReserva.add(reserva);  
 	      
 	          
 			  lineas++;
@@ -298,17 +300,17 @@ public class DBF {
 		}
 	}
 	
-	public Hashtable getListaHabitacion()
+	public List<Habitacion> getListaHabitacion()
 	{
 		
 		String query;
-		Hashtable ListaHabitacion;
+		List<Habitacion> ListaHabitacion;
 		ResultSet resultSet;
 				
 	                
-		query = "SELECT * FROM Reserva ORDER BY codigo ASC";
+		query = "SELECT * FROM Habitaciones ORDER BY numero ASC";
 		System.out.println("SQL a ejecutar: " + query);
-		ListaHabitacion = new Hashtable();
+		ListaHabitacion = new LinkedList<Habitacion>();
 	    Habitacion habitacion;
 	    
 		try
@@ -323,7 +325,7 @@ public class DBF {
 				String numero = resultSet.getString(1);
 				String tipo = resultSet.getString(2);     
 				double precio = resultSet.getDouble(3);
-				Boolean ocu = resultSet.getBoolean(4);
+				int ocu = resultSet.getInt(4);
 				String nombre_hotel = resultSet.getString(5);
 				
 	      
@@ -331,7 +333,7 @@ public class DBF {
 			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  habitacion = new Habitacion (numero, tipo, precio, ocu, nombre_hotel);        
-			  ListaHabitacion.put(new Integer(numero), habitacion);  
+			  ListaHabitacion.add(habitacion);  
 	      
 	          
 			  lineas++;
