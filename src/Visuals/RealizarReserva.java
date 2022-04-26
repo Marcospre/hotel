@@ -179,12 +179,14 @@ public class RealizarReserva implements ActionListener {
 		}
 	}
 	
-	public void Reservar(String tipo, int numero, Reserva reser) {
-		if(miHotel.comprobarHabitacion(tipo,numero)) {
-			miHotel.getHabitacion(tipo,numero,reser);
-			//miHotel.misReservas.add(nuevaReserva);
-		}else {
-			JOptionPane.showMessageDialog(null, "Habitaciones ocupadas");
-		}
+	public void Reservar(String tipo, int numero, Reserva reser) throws Exception {
+		
+			if(miHotel.comprobarHabitacion(tipo,numero)) {
+				miHotel.getHabitacion(tipo,numero,reser);
+				//miHotel.misReservas.add(nuevaReserva);
+			}else {
+				//JOptionPane.showMessageDialog(null, "Habitaciones ocupadas");
+				throw new Exception("Habitaciones ocupadas");
+			}
 	}
 }

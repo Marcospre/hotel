@@ -6,6 +6,9 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Database.DBF;
+
 import javax.swing.*;
 import java.awt.*;
 import hotel.Cliente;
@@ -20,10 +23,12 @@ public class WindowMenu implements ActionListener {
 	private JFrame frame;
 	private List<Cliente> misClientes;
 	private Hotel miHotel;
+	private DBF dbf;
 	
-	public WindowMenu(List<Cliente> misClientes, Hotel miHotel) {
+	public WindowMenu(List<Cliente> misClientes, Hotel miHotel, DBF dbf) {
 		this.misClientes = misClientes;
 		this.miHotel = miHotel;
+		this.dbf = dbf;
 		mostrarMenu();
 	}
 	
@@ -66,7 +71,7 @@ public class WindowMenu implements ActionListener {
 		switch(click.getActionCommand()) {
 			
 			case "Reserva":
-				NuevoCliente nuevoCli = new NuevoCliente(misClientes,miHotel);
+				NuevoCliente nuevoCli = new NuevoCliente(misClientes,miHotel,dbf);
 				//Cliente clien = nuevoCli.getNuevocliente();
 				//Trabajador recep= miHotel.atenderCliente();
 				//RealizarReserva nuevaReserva = new RealizarReserva(miHotel,recep,clien);

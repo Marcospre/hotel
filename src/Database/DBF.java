@@ -3,6 +3,7 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -424,6 +425,32 @@ public class DBF {
 		{
 			return hotel;
 		}
+	}
+	
+	public void añadirFilaCliente(Cliente cliente) {
+		
+		String SQL = "INSERT INTO Cliente(DNI,Nombre,Apellidos,Edad,Correo,Telefono) "
+                + "VALUES(?,?,?,?,?,?)";
+
+        
+
+        try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, cliente.getDNI());
+            pstmt.setString(2, cliente.getNombre());
+            pstmt.setString(3, cliente.getApellidos());
+            pstmt.setString(4, cliente.getEdad());
+            pstmt.setString(5, cliente.getCorreo());
+            pstmt.setString(6, cliente.getTelef());
+
+            pstmt.executeUpdate();
+            System.out.println("Linea añadida");
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+		
 	}
 
 	

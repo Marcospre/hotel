@@ -43,7 +43,7 @@ public class Main {
 		misHabitaciones = dbf.getListaHabitacion();
 		misReservas = dbf.getListaReseva();
 		Hotel miHotel = new Hotel("Tricaro", "*****","Calle ***** nº*",misTrabajadores,misHabitaciones, misReservas);
-		WindowMenu miMenu = new WindowMenu(misClientes,miHotel);
+		WindowMenu miMenu = new WindowMenu(misClientes,miHotel,dbf);
 	
 	}
 

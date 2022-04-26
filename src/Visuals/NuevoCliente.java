@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Database.DBF;
 import hotel.Cliente;
 import hotel.Hotel;
 
@@ -29,10 +30,12 @@ public class NuevoCliente implements ActionListener {
 	private List<Cliente> misClientes;
 	private Cliente nuevoCliente;
 	private Hotel miHotel;
+	private DBF dbf;
 	
-	public NuevoCliente(List<Cliente> misClientes, Hotel hotel) {
+	public NuevoCliente(List<Cliente> misClientes, Hotel hotel, DBF dbf) {
 		this.misClientes = misClientes;
 		this.miHotel = hotel;
+		this.dbf = dbf;
 		mostrarMenu();
 	}
 	
@@ -90,6 +93,10 @@ public class NuevoCliente implements ActionListener {
 				
 				nuevoCliente = new Cliente(txtNombre.getText(),txtApellidos.getText(),txtDNI.getText(),txtCorreo.getText(),txtEdad.getText(),txtTelefono.getText());
 				misClientes.add(nuevoCliente);
+				
+				//añadir cliente
+				dbf.añadirFilaCliente(nuevoCliente);
+				
 			}catch(Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}

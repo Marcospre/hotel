@@ -14,5 +14,13 @@ public class Cliente extends Persona{
 		this.id_trabaja = id_trabajador;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getID_Trabajador() {
+		return this.id_trabaja;
+	}
+	
+	public void setID_Trabajador() {
+		
+	}
 
 }
