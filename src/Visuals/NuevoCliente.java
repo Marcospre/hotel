@@ -101,7 +101,7 @@ public class NuevoCliente implements ActionListener {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			ventana.dispose();
-			RealizarReserva nuevaReserva = new RealizarReserva(nuevoCliente,miHotel);
+			RealizarReserva nuevaReserva = new RealizarReserva(nuevoCliente,miHotel,dbf);
 			break;
 			
 		case "Cancelar":

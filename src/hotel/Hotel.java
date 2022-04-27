@@ -105,38 +105,45 @@ public class Hotel {
 		return cont;
 	}
 	
-	public void getHabitacion(String tipo,int numero, Reserva reser) {
+	public Habitacion getHabitacion(String tipo,int numero, Reserva reser) {
+		
+		Habitacion habi = null;
+		
 		if(tipo.equals("Individual")) {
 			for(int i=0; i < numero; i++) {
 				if(!individuales.get(i).getOcupado()) {
 					reser.addHabitacion(individuales.get(i));
-					individuales.get(i).setOcupado(false);
+					individuales.get(i).setOcupado(true);
+					habi = individuales.get(i);
 				}
 			}
 		}else if(tipo.equals("Doble")) {
 			for(int i=0; i < numero; i++) {
 				if(!dobles.get(i).getOcupado()) {
 					reser.addHabitacion(dobles.get(i));
-					dobles.get(i).setOcupado(false);
+					dobles.get(i).setOcupado(true);
+					habi = dobles.get(i);
 				}
 			}
 		}else if(tipo.equals("Familiar")) {
 			for(int i=0; i < numero; i++) {
 				if(!familiares.get(i).getOcupado()) {
 					reser.addHabitacion(familiares.get(i));
-					familiares.get(i).setOcupado(false);
+					familiares.get(i).setOcupado(true);
+					habi = familiares.get(i);
 				}
 			}
 		}else if(tipo.equals("Lujo")) {
 			for(int i=0; i < numero; i++) {
 				if(!lujo.get(i).getOcupado()) {
 					reser.addHabitacion(lujo.get(i));
-					lujo.get(i).setOcupado(false);
+					lujo.get(i).setOcupado(true);
+					habi = lujo.get(i);
 				}
 			}
 		}
 		
-		
+		return habi;
 	}
 	
 	

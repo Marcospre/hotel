@@ -446,11 +446,63 @@ public class DBF {
 
             pstmt.executeUpdate();
             System.out.println("Linea añadida");
+            pstmt.close();
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 		
+	}
+	
+	public void añadirReserva(Reserva reserva) {
+		
+		String SQL = "INSERT INTO Reserva(codigo,precio,DNI_cliente,fecha_entrada,fecha_salida,fecha_reserva) "
+                + "VALUES(?,?,?,?,?,?)";
+		
+		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, reserva.getCodigo());
+            pstmt.setDouble(2, reserva.getPrecio());
+            pstmt.setString(3, reserva.getCodigoCliente());
+            pstmt.setDate(4, java.sql.Date.valueOf(reserva.getFecha_entrada()));
+            pstmt.setDate(5, java.sql.Date.valueOf(reserva.getFecha_salida()));
+            pstmt.setDate(6, java.sql.Date.valueOf(reserva.getDateFechaReserva().toString()));
+
+            pstmt.executeUpdate();
+            System.out.println("Linea añadida");
+            pstmt.close();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+	}
+	
+	public void añadirReserva_Habi(Reserva reserva, Habitacion habi) {
+		
+		String SQL = "INSERT INTO Habi_Reser(numero,codigo_reser) "
+                + "VALUES(?,?)";
+		
+		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+			
+	            pstmt.setString(1, habi.getNumero());
+	            pstmt.setString(2, reserva.getCodigo());
+	
+	            pstmt.executeUpdate();
+			
+	            System.out.println("Linea añadida");
+	            pstmt.close();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+	}
+	
+	public void estadoHabi(Habitacion habi) {
+		String SQL = "update Habitacion "
+                + "set disponi = 0"
+				+ "where numero = "+habi.getNumero();
 	}
 
 	

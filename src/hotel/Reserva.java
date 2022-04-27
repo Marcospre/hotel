@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.swing.text.DateFormatter;
+
 public class Reserva {
 	private String codigo;
 	LocalDateTime fecha_reserva;
@@ -19,12 +21,15 @@ public class Reserva {
 	DateTimeFormatter z = DateTimeFormatter.ofPattern("YY/MM/dd");
 	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
 	
+	
 	public Reserva(String codigo,double precio, String codigo_cliente, java.util.Date fecha_entrada2, java.util.Date fecha_salida2, java.util.Date fecha_reserva2) {
 		
 		this.fecha_reserva = fecha_reserva2.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();   
 		this.precio = precio;
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = codigo;
+		//this.fecha_entrada = (Date) fecha_entrada2;
+		//this.fecha_salida = (Date) fecha_salida2;
 		this.fecha_entrada = fecha_entrada2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		this.fecha_salida = fecha_salida2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
@@ -59,6 +64,18 @@ public class Reserva {
 	
 	public String getFecha_entrada() {
 		return this.fecha_entrada.format(z).toString();
+	}
+	
+	public Date getDateFechaEntrada() {
+		return (Date) Date.from(fecha_entrada.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public Date getDateFechaSalida() {
+		return (Date) Date.from(fecha_salida.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public Date getDateFechaReserva() {
+		return (Date) Date.from(fecha_reserva.atZone(ZoneId.systemDefault()).toInstant());
 	}
 	
 	public String getFecha_salida() {

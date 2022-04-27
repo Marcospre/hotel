@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import Database.DBF;
 import hotel.Cliente;
 import hotel.Habitacion;
 import hotel.Hotel;
@@ -44,12 +45,14 @@ public class RealizarReserva implements ActionListener {
 	private JTextField txt2 = new JTextField(2);
 	private JTextField txt3 = new JTextField(2);
 	private JTextField txt4 = new JTextField(2);
+	private DBF dbf;
 	
 	//private ButtonGroup tipos = new ButtonGroup();
 	
-	public RealizarReserva(Cliente cliente, Hotel hotel) {
+	public RealizarReserva(Cliente cliente, Hotel hotel, DBF dbf) {
 		this.miHotel = hotel;
 		this.cliente = cliente;
+		this.dbf = dbf;
 		//this.recep = recep;
 		mostrarMenu();
 	}
@@ -165,7 +168,7 @@ public class RealizarReserva implements ActionListener {
 					Reservar("Lujo",Integer.parseInt(this.txt4.getText()),nuevaReserva);
 				}
 				System.out.println(nuevaReserva.mostrarInfo());
-				
+				dbf.añadirReserva(nuevaReserva);
 				InfoReserva inforeser = new InfoReserva(nuevaReserva);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -180,9 +183,10 @@ public class RealizarReserva implements ActionListener {
 	}
 	
 	public void Reservar(String tipo, int numero, Reserva reser) throws Exception {
-		
+			Habitacion habi = null;
 			if(miHotel.comprobarHabitacion(tipo,numero)) {
-				miHotel.getHabitacion(tipo,numero,reser);
+				habi = miHotel.getHabitacion(tipo,numero,reser);
+				dbf.añadirReserva_Habi(reser, habi);
 				//miHotel.misReservas.add(nuevaReserva);
 			}else {
 				//JOptionPane.showMessageDialog(null, "Habitaciones ocupadas");
