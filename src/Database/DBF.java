@@ -465,9 +465,9 @@ public class DBF {
             pstmt.setString(1, reserva.getCodigo());
             pstmt.setDouble(2, reserva.getPrecio());
             pstmt.setString(3, reserva.getCodigoCliente());
-            pstmt.setDate(4, java.sql.Date.valueOf(reserva.getFecha_entrada()));
-            pstmt.setDate(5, java.sql.Date.valueOf(reserva.getFecha_salida()));
-            pstmt.setDate(6, java.sql.Date.valueOf(reserva.getDateFechaReserva().toString()));
+            pstmt.setString(4,reserva.getFecha_entrada());
+            pstmt.setString(5, reserva.getFecha_salida());
+            pstmt.setString(6,reserva.getFecha());
 
             pstmt.executeUpdate();
             System.out.println("Linea añadida");
@@ -499,10 +499,31 @@ public class DBF {
         }
 	}
 	
-	public void estadoHabi(Habitacion habi) {
+	public void estadoHabi(Habitacion habi, boolean ocu) {
+		
+		int e;
+		
+		if(ocu)
+			e = 0;
+		else 
+			e = 1;
+		
+		
 		String SQL = "update Habitacion "
-                + "set disponi = 0"
+                + "set disponi = "+ e
 				+ "where numero = "+habi.getNumero();
+		
+		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+			
+	            pstmt.executeUpdate();
+			
+	            System.out.println("Linea añadida");
+	            pstmt.close();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
 	}
 
 	

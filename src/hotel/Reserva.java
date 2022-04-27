@@ -11,20 +11,20 @@ import javax.swing.text.DateFormatter;
 
 public class Reserva {
 	private String codigo;
-	LocalDateTime fecha_reserva;
+	LocalDate fecha_reserva;
 	private double precio;
 	private String codigo_cliente;
 	List<Habitacion> habitacion_reserva = null;
 	LocalDate fecha_entrada;
 	LocalDate fecha_salida;
-	DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm:ss");
+	DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY/MM/dd");
 	DateTimeFormatter z = DateTimeFormatter.ofPattern("YY/MM/dd");
 	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
 	
 	
 	public Reserva(String codigo,double precio, String codigo_cliente, java.util.Date fecha_entrada2, java.util.Date fecha_salida2, java.util.Date fecha_reserva2) {
 		
-		this.fecha_reserva = fecha_reserva2.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();   
+		this.fecha_reserva = fecha_reserva2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();   
 		this.precio = precio;
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = codigo;
@@ -36,7 +36,7 @@ public class Reserva {
 	
 	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {
 		this.habitacion_reserva = habi_reserva; 
-		this.fecha_reserva = LocalDateTime.now();   
+		this.fecha_reserva = LocalDate.now();   
 		///this.precio = calcularPrecio();
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = generarCodigo();
@@ -75,7 +75,7 @@ public class Reserva {
 	}
 	
 	public Date getDateFechaReserva() {
-		return (Date) Date.from(fecha_reserva.atZone(ZoneId.systemDefault()).toInstant());
+		return (Date) Date.from(fecha_reserva.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 	
 	public String getFecha_salida() {
@@ -108,9 +108,12 @@ public class Reserva {
 	public String mostrarInfo() {
 		this.precio = calcularPrecio();
 		String m = "Reserva\n";
-		m = m + "fecha: " + this.codigo+"\n";
+		m = m + "codigo: " + this.codigo+"\n";
 		m = m + "Cliente: "+ this.codigo_cliente+"\n";
 		m = m + "precio: " + this.precio+"\n";
+		m = m + "fecha_entrada: " + getFecha_entrada()+"\n";
+		m = m + "fecha_salida: " + getFecha_salida()+"\n";
+		m = m + "fecha_reserva: " + getFecha()+"\n";
 		
 		
 		return m;

@@ -153,8 +153,10 @@ public class RealizarReserva implements ActionListener {
 				
 				LocalDate time_entrada = LocalDate.of(Integer.parseInt(anio_e.getText()), Integer.parseInt(mes_e.getText()), Integer.parseInt(dia_e.getText()));
 				LocalDate time_salida = LocalDate.of(Integer.parseInt(anio_s.getText()), Integer.parseInt(mes_s.getText()), Integer.parseInt(dia_s.getText()));
-				Reserva nuevaReserva = new Reserva(cliente.getDNI(),new LinkedList<Habitacion>(), time_entrada, time_salida);
 				
+				Reserva nuevaReserva = new Reserva(cliente.getDNI(),new LinkedList<Habitacion>(), time_entrada, time_salida);
+				System.out.println(nuevaReserva.mostrarInfo());
+				dbf.añadirReserva(nuevaReserva);
 				if(bIndi.isSelected()) {
 					Reservar("Individual",Integer.parseInt(this.txt1.getText()),nuevaReserva);
 				}
@@ -168,7 +170,7 @@ public class RealizarReserva implements ActionListener {
 					Reservar("Lujo",Integer.parseInt(this.txt4.getText()),nuevaReserva);
 				}
 				System.out.println(nuevaReserva.mostrarInfo());
-				dbf.añadirReserva(nuevaReserva);
+				
 				InfoReserva inforeser = new InfoReserva(nuevaReserva);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -186,6 +188,7 @@ public class RealizarReserva implements ActionListener {
 			Habitacion habi = null;
 			if(miHotel.comprobarHabitacion(tipo,numero)) {
 				habi = miHotel.getHabitacion(tipo,numero,reser);
+				
 				dbf.añadirReserva_Habi(reser, habi);
 				//miHotel.misReservas.add(nuevaReserva);
 			}else {
