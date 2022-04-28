@@ -446,7 +446,7 @@ public class DBF {
 
             pstmt.executeUpdate();
             System.out.println("Linea añadida");
-            pstmt.close();
+            
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -471,55 +471,72 @@ public class DBF {
 
             pstmt.executeUpdate();
             System.out.println("Linea añadida");
-            pstmt.close();
+           ;
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 	}
 	
-	public void añadirReserva_Habi(Reserva reserva, Habitacion habi) {
+	public void añadirReserva_Habi(Reserva reserva, List<Habitacion> habi) {
 		
 		String SQL = "INSERT INTO Habi_Reser(numero,codigo_reser) "
                 + "VALUES(?,?)";
 		
+		int cont = 0;
+		
 		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
                 Statement.RETURN_GENERATED_KEYS)) {
-			
-	            pstmt.setString(1, habi.getNumero());
+			for(int i = 0; i < habi.size(); i++) {
+	            pstmt.setString(1, habi.get(i).getNumero());
 	            pstmt.setString(2, reserva.getCodigo());
 	
 	            pstmt.executeUpdate();
+	            cont++;
+	            
+			}
 			
-	            System.out.println("Linea añadida");
-	            pstmt.close();
+			System.out.println("Lineas añadidas: "+cont);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        }
+	}
+	
+	public void modificiarPrecio(Reserva reserva, double precio) {
+		
+		String sql = "update Reserva "
+					+"set precio = ?"
+					+" where codigo = ?";
+		
+		try (PreparedStatement pstmt = konexioa.prepareStatement(sql)) {
+			pstmt.setDouble(1, precio);
+			pstmt.setString(2, reserva.getCodigo());
+            pstmt.executeUpdate();
+            System.out.println("Linea cambiada");
+           
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        
         }
 	}
 	
 	public void estadoHabi(Habitacion habi, boolean ocu) {
 		
-		int e;
+		int e = ocu ? 0 : 1;
+	
+		String SQL = "update Habitaciones "
+                + "set disponi = ?"
+				+ " where numero = ?";
 		
-		if(ocu)
-			e = 0;
-		else 
-			e = 1;
-		
-		
-		String SQL = "update Habitacion "
-                + "set disponi = "+ e
-				+ "where numero = "+habi.getNumero();
-		
-		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL,
-                Statement.RETURN_GENERATED_KEYS)) {
-			
+		try (PreparedStatement pstmt = konexioa.prepareStatement(SQL)) {
+				
+				pstmt.setInt(1, e);
+				pstmt.setString(2, habi.getNumero());
 	            pstmt.executeUpdate();
 			
-	            System.out.println("Linea añadida");
-	            pstmt.close();
+	            System.out.println("Linea cambiada");
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
