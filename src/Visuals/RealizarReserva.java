@@ -224,6 +224,7 @@ public class RealizarReserva implements ActionListener {
 				System.out.println(nuevaReserva.mostrarInfo());
 				dbf.modificiarPrecio(nuevaReserva, nuevaReserva.getPrecio());
 				InfoReserva inforeser = new InfoReserva(nuevaReserva);
+				ventana.dispose();
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}

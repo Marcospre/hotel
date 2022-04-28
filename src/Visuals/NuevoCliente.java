@@ -15,6 +15,8 @@ import hotel.Hotel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NuevoCliente implements ActionListener {
 	
@@ -90,6 +92,33 @@ public class NuevoCliente implements ActionListener {
 				if(txtNombre.getText().equals("") || txtApellidos.getText().equals("") || txtDNI.getText().equals("") || txtCorreo.getText().equals("") || txtEdad.getText().equals("") || txtTelefono.getText().equals("")) {
 					throw new Exception("Rellene todos los campos");
 				}
+				Pattern dni_formato = Pattern.compile("^[0-9]{9}[a-zA-Z]$");
+				Matcher comparador = dni_formato.matcher(txtDNI.getText());
+				
+				if (!comparador.matches()) {
+					throw new Exception("Formato DNI incorrecto");
+				}
+				
+				Pattern correo_formato = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
+				Matcher comparadorCorreo = correo_formato.matcher(txtCorreo.getText());
+				
+				if (!comparadorCorreo.matches()) {
+					throw new Exception("Formato email incorrecto");
+				}
+				
+				Pattern tel_formato = Pattern.compile("^[0-9]{9}$");
+				Matcher comparadorTele = tel_formato.matcher(txtTelefono.getText());
+				
+				if (!comparadorTele.matches()) {
+					throw new Exception("Formato telefono incorrecto");
+				}
+				
+				Pattern edad_formato = Pattern.compile("^[0-9]+$");
+				Matcher comparadorEdad = edad_formato.matcher(txtEdad.getText());
+				
+				if (!comparadorEdad.matches()) {
+					throw new Exception("Formato edad incorrecto");
+				}
 				
 				nuevoCliente = new Cliente(txtNombre.getText(),txtApellidos.getText(),txtDNI.getText(),txtCorreo.getText(),txtEdad.getText(),txtTelefono.getText());
 				misClientes.add(nuevoCliente);
@@ -97,11 +126,14 @@ public class NuevoCliente implements ActionListener {
 				//añadir cliente
 				dbf.añadirFilaCliente(nuevoCliente);
 				
+				ventana.dispose();
+				RealizarReserva nuevaReserva = new RealizarReserva(nuevoCliente,miHotel,dbf);
+				
 			}catch(Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
-			ventana.dispose();
-			RealizarReserva nuevaReserva = new RealizarReserva(nuevoCliente,miHotel,dbf);
+			
+			
 			break;
 			
 		case "Cancelar":

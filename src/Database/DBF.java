@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -247,6 +248,7 @@ public class DBF {
 		System.out.println("SQL a ejecutar: " + query);
 		ListaReserva = new LinkedList<Reserva>();
 	    Reserva reserva;
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 	    
 		try
 		{
@@ -260,15 +262,15 @@ public class DBF {
 				String codigo = resultSet.getString(1);
 				double precio = resultSet.getDouble(2);     
 				String dni_cliente = resultSet.getString(3);
-				Date fecha_entrada = resultSet.getDate(4);
-				Date fecha_salida = resultSet.getDate(5);
-				Date fecha_reserva = resultSet.getDate(6);  
+				LocalDate fecha_entrada = LocalDate.parse(resultSet.getString(4),formatter);
+				LocalDate fecha_salida = LocalDate.parse(resultSet.getString(5),formatter);
+				LocalDate fecha_reserva = LocalDate.parse(resultSet.getString(6),formatter);  
 				
 	      
 				//System.out.println("employee : " + "first_name = " + first_name );
 			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
-			  reserva = new Reserva (codigo, precio, dni_cliente, fecha_entrada, fecha_salida, fecha_reserva);        
+			  reserva = new Reserva (codigo, precio, dni_cliente,fecha_entrada, fecha_salida, fecha_reserva);        
 			  ListaReserva.add(reserva);  
 	      
 	          

@@ -22,16 +22,16 @@ public class Reserva {
 	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
 	
 	
-	public Reserva(String codigo,double precio, String codigo_cliente, java.util.Date fecha_entrada2, java.util.Date fecha_salida2, java.util.Date fecha_reserva2) {
+	public Reserva(String codigo,double precio, String codigo_cliente, LocalDate fecha_entrada2, LocalDate fecha_salida2, LocalDate fecha_reserva2) {
 		
-		this.fecha_reserva = fecha_reserva2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();   
+		this.fecha_reserva = fecha_reserva2;  
 		this.precio = precio;
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = codigo;
 		//this.fecha_entrada = (Date) fecha_entrada2;
 		//this.fecha_salida = (Date) fecha_salida2;
-		this.fecha_entrada = fecha_entrada2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		this.fecha_salida = fecha_salida2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.fecha_entrada = fecha_entrada2;
+		this.fecha_salida = fecha_salida2;
 	}
 	
 	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {
@@ -63,7 +63,7 @@ public class Reserva {
 	}
 	
 	public String getFecha_entrada() {
-		return this.fecha_entrada.format(z).toString();
+		return this.fecha_entrada.format(f).toString();
 	}
 	
 	public Date getDateFechaEntrada() {
@@ -79,7 +79,7 @@ public class Reserva {
 	}
 	
 	public String getFecha_salida() {
-		return this.fecha_salida.format(z).toString();
+		return this.fecha_salida.format(f).toString();
 	}
 	
 	public double getPrecio() {
