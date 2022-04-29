@@ -20,11 +20,11 @@ public class Persona {
 	}
 
 	public String getDNI() {
-		return DNI;
+		return this.DNI;
 	}
 
 	public void setDNI(String dNI) {
-		DNI = dNI;
+		this.DNI = dNI;
 	}
 
 	public String getNombre() {

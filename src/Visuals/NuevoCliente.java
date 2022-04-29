@@ -92,7 +92,7 @@ public class NuevoCliente implements ActionListener {
 				if(txtNombre.getText().equals("") || txtApellidos.getText().equals("") || txtDNI.getText().equals("") || txtCorreo.getText().equals("") || txtEdad.getText().equals("") || txtTelefono.getText().equals("")) {
 					throw new Exception("Rellene todos los campos");
 				}
-				Pattern dni_formato = Pattern.compile("^[0-9]{9}[a-zA-Z]$");
+				Pattern dni_formato = Pattern.compile("^[0-9]{8}[a-zA-Z]$");
 				Matcher comparador = dni_formato.matcher(txtDNI.getText());
 				
 				if (!comparador.matches()) {
@@ -120,7 +120,7 @@ public class NuevoCliente implements ActionListener {
 					throw new Exception("Formato edad incorrecto");
 				}
 				
-				nuevoCliente = new Cliente(txtNombre.getText(),txtApellidos.getText(),txtDNI.getText(),txtCorreo.getText(),txtEdad.getText(),txtTelefono.getText());
+				nuevoCliente = new Cliente(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtCorreo.getText(),txtEdad.getText(),txtTelefono.getText());
 				misClientes.add(nuevoCliente);
 				
 				//añadir cliente

@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -196,9 +198,9 @@ public class RealizarReserva implements ActionListener {
 				if(bIndi.getActionCommand().equals("") && bDobl.getActionCommand().equals("") && bFami.getActionCommand().equals("") && bLujo.getActionCommand().equals("")) {
 					throw new Exception("Inserte algun valor");
 				}
-				
+			
 				SimpleDateFormat fmonth = new SimpleDateFormat("MM");             
-			   
+				Pattern numero_formato = Pattern.compile("^[0-9]$");
 				
 				//LocalDate time_entrada = LocalDate.of(Integer.parseInt(anio_e.getText()), Integer.parseInt(mes_e.getText()), Integer.parseInt(dia_e.getText()));
 				//LocalDate time_salida = LocalDate.of(Integer.parseInt(anio_s.getText()), Integer.parseInt(mes_s.getText()), Integer.parseInt(dia_s.getText()));
@@ -210,15 +212,39 @@ public class RealizarReserva implements ActionListener {
 				System.out.println(nuevaReserva.mostrarInfo());
 				dbf.añadirReserva(nuevaReserva);
 				if(bIndi.isSelected()) {
+					
+					Matcher comparador1 = numero_formato.matcher(txt1.getText());
+					
+					if(!comparador1.matches()) {
+						throw new Exception("Formato incorrecto"); 
+					}
 					Reservar("Individual",Integer.parseInt(this.txt1.getText()),nuevaReserva);
 				}
 				if(bDobl.isSelected()) {
+					
+					Matcher comparador2 = numero_formato.matcher(txt1.getText());
+					
+					if(!comparador2.matches()) {
+						throw new Exception("Formato incorrecto"); 
+					}
 					Reservar("Doble",Integer.parseInt(this.txt2.getText()),nuevaReserva);
 				}
 				if(bFami.isSelected()) {
+					
+					Matcher comparador3 = numero_formato.matcher(txt1.getText());
+					
+					if(!comparador3.matches()) {
+						throw new Exception("Formato incorrecto"); 
+					}
 					Reservar("Familiar",Integer.parseInt(this.txt3.getText()),nuevaReserva);
 				}
 				if(bLujo.isSelected()) {
+					
+					Matcher comparador4 = numero_formato.matcher(txt1.getText());
+					
+					if(!comparador4.matches()) {
+						throw new Exception("Formato incorrecto"); 
+					}
 					Reservar("Lujo",Integer.parseInt(this.txt4.getText()),nuevaReserva);
 				}
 				System.out.println(nuevaReserva.mostrarInfo());
