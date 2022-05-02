@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,10 +41,10 @@ public class RealizarReserva implements ActionListener {
 	private Cliente cliente;
 	private JButton aceptar = new JButton("Aceptar");
 	private JButton cancelar = new JButton("Cancelar");
-	private JRadioButton bIndi = new JRadioButton("Individual");
-	private JRadioButton bDobl = new JRadioButton("Doble");
-	private JRadioButton bFami = new JRadioButton("Familiar");
-	private JRadioButton bLujo = new JRadioButton("Lujo");
+	private JCheckBox bIndi = new JCheckBox("Individual");
+	private JCheckBox bDobl = new JCheckBox("Doble");
+	private JCheckBox bFami = new JCheckBox("Familiar");
+	private JCheckBox bLujo = new JCheckBox("Lujo");
 	JTextField dia_e = new JTextField(2);
 	JTextField mes_e = new JTextField(2);
 	JTextField anio_e = new JTextField(2);
@@ -68,6 +69,9 @@ public class RealizarReserva implements ActionListener {
 		mostrarMenu();
 	}
 	
+	/* Metodo que muestra el panel donde el usuario realiza la reserva. Aqui podra elegir el tipo y numero de habitaciones que
+	 * quiere reservar. Asi como las fechas de entrada y salida del hotel.
+	 */
 	public void mostrarMenu() {
 		
 		ventana = new JFrame("Reserva");
@@ -191,10 +195,16 @@ public class RealizarReserva implements ActionListener {
 		
 	}
 	
+	/* Metodo que registra la accion realizada por el usuario. Si se ejecuta el boton aceptar, se realiza
+	 * una nueva reserva, esta reserva se registra en la base de datos. Dependiendo de los botones seleccionadas, 
+	 * se llama al metodo Reservar pasandole los parametros correspondientes. Despues, se realiza un calculo del precio 
+	 * y este se guarda en la base de datos. Por ultimo, se llama al constructo inforReserva.
+	 */
 	public void actionPerformed(ActionEvent click) {
 		switch(click.getActionCommand()) {
 		case "Aceptar":
 			try {
+				
 				if(bIndi.getActionCommand().equals("") && bDobl.getActionCommand().equals("") && bFami.getActionCommand().equals("") && bLujo.getActionCommand().equals("")) {
 					throw new Exception("Inserte algun valor");
 				}
@@ -216,33 +226,37 @@ public class RealizarReserva implements ActionListener {
 					Matcher comparador1 = numero_formato.matcher(txt1.getText());
 					
 					if(!comparador1.matches()) {
+						dbf.eliminarReserva(nuevaReserva);
 						throw new Exception("Formato incorrecto"); 
 					}
 					Reservar("Individual",Integer.parseInt(this.txt1.getText()),nuevaReserva);
 				}
 				if(bDobl.isSelected()) {
 					
-					Matcher comparador2 = numero_formato.matcher(txt1.getText());
+					Matcher comparador2 = numero_formato.matcher(txt2.getText());
 					
 					if(!comparador2.matches()) {
+						dbf.eliminarReserva(nuevaReserva);
 						throw new Exception("Formato incorrecto"); 
 					}
 					Reservar("Doble",Integer.parseInt(this.txt2.getText()),nuevaReserva);
 				}
 				if(bFami.isSelected()) {
 					
-					Matcher comparador3 = numero_formato.matcher(txt1.getText());
+					Matcher comparador3 = numero_formato.matcher(txt3.getText());
 					
 					if(!comparador3.matches()) {
+						dbf.eliminarReserva(nuevaReserva);
 						throw new Exception("Formato incorrecto"); 
 					}
 					Reservar("Familiar",Integer.parseInt(this.txt3.getText()),nuevaReserva);
 				}
 				if(bLujo.isSelected()) {
 					
-					Matcher comparador4 = numero_formato.matcher(txt1.getText());
+					Matcher comparador4 = numero_formato.matcher(txt4.getText());
 					
 					if(!comparador4.matches()) {
+						dbf.eliminarReserva(nuevaReserva);
 						throw new Exception("Formato incorrecto"); 
 					}
 					Reservar("Lujo",Integer.parseInt(this.txt4.getText()),nuevaReserva);
@@ -263,6 +277,10 @@ public class RealizarReserva implements ActionListener {
 		}
 	}
 	
+	/* Metodo que llama a otros donde se guardan las habitaciones escogidas en la reserva. Ademas, se crean
+	 * los registros correpondientes en la tabla Habi_Reser de la BBDD y se cambia el estado de las habitaciones
+	 * reservadas a ocupadas.
+	 */
 	public void Reservar(String tipo, int numero, Reserva reser) throws Exception {
 			List<Habitacion> habi = null;
 			if(miHotel.comprobarHabitacion(tipo,numero)) {
@@ -277,6 +295,7 @@ public class RealizarReserva implements ActionListener {
 				
 				//miHotel.misReservas.add(nuevaReserva);
 			}else {
+				dbf.eliminarReserva(reser);
 				throw new Exception("Habitaciones ocupadas");
 			}
 	}

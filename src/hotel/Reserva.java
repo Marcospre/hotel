@@ -5,18 +5,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.text.DateFormatter;
 
 public class Reserva {
 	private String codigo;
-	LocalDate fecha_reserva;
+	private LocalDate fecha_reserva;  /* fecha en la que se hizo la reserva */
 	private double precio;
 	private String codigo_cliente;
-	List<Habitacion> habitacion_reserva = null;
-	LocalDate fecha_entrada;
-	LocalDate fecha_salida;
+	private List<Habitacion> habitacion_reserva = null;  /* Lista donde se guardan las habitaciones reservadas */
+	private LocalDate fecha_entrada;   /* fecha en la que entra a la habitacion */
+	private LocalDate fecha_salida;    /* fecha en la que se sale de la habitacion */
 	DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY/MM/dd");
 	DateTimeFormatter z = DateTimeFormatter.ofPattern("YY/MM/dd");
 	DateTimeFormatter c = DateTimeFormatter.ofPattern("YYMMdd");
@@ -32,6 +33,7 @@ public class Reserva {
 		//this.fecha_salida = (Date) fecha_salida2;
 		this.fecha_entrada = fecha_entrada2;
 		this.fecha_salida = fecha_salida2;
+		this.habitacion_reserva = new LinkedList<Habitacion>();
 	}
 	
 	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {
@@ -42,9 +44,10 @@ public class Reserva {
 		this.codigo = generarCodigo();
 		this.fecha_entrada = fecha_e;
 		this.fecha_salida = fecha_s;
+		this.habitacion_reserva = new LinkedList<Habitacion>();
 	}
 	
-	
+	/* Metodo que genera el codigo de reserva apartir del DNI del cliente y de la fecha de la reserva */
 	public String generarCodigo() {
 		
 		return this.codigo_cliente+fecha_reserva.format(c);
@@ -86,6 +89,7 @@ public class Reserva {
 		return this.precio;
 	}
 	
+	/* Metodo que calcula el precio de la reserva */
 	public double calcularPrecio() {
 		double total = 0;
 		
@@ -97,6 +101,7 @@ public class Reserva {
 		
 	}
 	
+	/* Metodo que añade una habitacion a la lista de habitaciones reservadas */
 	public void addHabitacion(Habitacion nueva) {
 		this.habitacion_reserva.add(nueva);
 	}
@@ -119,6 +124,7 @@ public class Reserva {
 		return m;
 	}
 	
+	/* Metodo que cuenta las habitaciones de cada tipo que hay y las devuelve en un formato string */
 	public String contarHabi() {
 		int indi = 0;
 		int doble = 0;

@@ -23,9 +23,9 @@ import hotel.Trabajador;
 
 public class DBF {
 
-	private static DBF instance;
-	private String url;
-	private Connection konexioa;
+	private static DBF instance;    /* Instancia de la base de datos */
+	private String url;             /* direccionde la base de datos */
+	private Connection konexioa;  
 	private Statement statement;
 		
 	/* gestion de multi instancias*/
@@ -38,6 +38,9 @@ public class DBF {
 	  }
 	  
 	// estructura multi base de datos 
+	 /* Permite seleccionar entre varias bases de datos. En nuestro caso, solo utilizaremos
+	  * la de dql oracle.
+	  */
 	public void selectDB(int database)
 	  {
 	  try
@@ -103,6 +106,9 @@ public class DBF {
 	  }
 	
 	//@SuppressWarnings("rawtypes")
+	/* Metodo que realiza la query de leer los clientes de la Tabla cliente. Estos datos 
+	 * se guardan en una lista que se devuelve como parametro de salida.
+	 */
 	public List<Cliente> getListaCliente()
 	{
 		
@@ -133,8 +139,6 @@ public class DBF {
 				String Telefono = resultSet.getString(6);
 				String ID_trabaja = resultSet.getString(7);
 	      
-				//System.out.println("employee : " + "first_name = " + first_name );
-			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  cliente = new Cliente (DNI,Nombre, Apellidos, email, edad, Telefono, ID_trabaja);        
 			  ListaClientes.add(cliente);  
@@ -169,6 +173,9 @@ public class DBF {
 		}
 	}
 	
+	/* Metodo que realiza la query de leer las lineas de la Tabla Trabajadores. Estos datos 
+	 * se guardan en una lista que se devuelve como parametro de salida.
+	 */
 	public List<Trabajador> getListaTrabajador()
 	{
 		
@@ -199,9 +206,6 @@ public class DBF {
 				String Telefono = resultSet.getString(6);
 				String id = resultSet.getString(7);
 				String contraseña = resultSet.getString(8);
-	      
-				//System.out.println("employee : " + "first_name = " + first_name );
-			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  trabajador = new Trabajador (DNI,Nombre, Apellidos, email, edad, Telefono, id, contraseña);        
 			  ListaTrabajador.add(trabajador);  
@@ -236,6 +240,9 @@ public class DBF {
 		}
 	}
 	
+	/* Metodo que realiza la query de leer las lineas de la Tabla Reserva. Estos datos 
+	 * se guardan en una lista que se devuelve como parametro de salida.
+	 */
 	public List<Reserva> getListaReseva()
 	{
 		
@@ -267,9 +274,6 @@ public class DBF {
 				LocalDate fecha_reserva = LocalDate.parse(resultSet.getString(6),formatter);  
 				
 	      
-				//System.out.println("employee : " + "first_name = " + first_name );
-			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
-	  
 			  reserva = new Reserva (codigo, precio, dni_cliente,fecha_entrada, fecha_salida, fecha_reserva);        
 			  ListaReserva.add(reserva);  
 	      
@@ -303,6 +307,9 @@ public class DBF {
 		}
 	}
 	
+	/* Metodo que realiza la query de leer las lineas de la Tabla Habitaciones. Estos datos 
+	 * se guardan en una lista que se devuelve como parametro de salida.
+	 */
 	public List<Habitacion> getListaHabitacion()
 	{
 		
@@ -331,9 +338,6 @@ public class DBF {
 				int ocu = resultSet.getInt(4);
 				String nombre_hotel = resultSet.getString(5);
 				
-	      
-				//System.out.println("employee : " + "first_name = " + first_name );
-			  //System.out.println("Select usuario Result: " + "employee_id = " + employee_id );
 	  
 			  habitacion = new Habitacion (numero, tipo, precio, ocu, nombre_hotel);        
 			  ListaHabitacion.add(habitacion);  
@@ -368,6 +372,9 @@ public class DBF {
 		}
 	}
 	
+	/* Metodo que realiza la query de leer las lineas de la Tabla Hotel. Crea una 
+	 * instancia de la clase hotel que devuelve como parametro
+	 */
 	public Hotel getHotel()
 	{
 		
@@ -429,6 +436,9 @@ public class DBF {
 		}
 	}
 	
+	/* Metodo que ,pasandole un cliente como parametro de entrada, realiza la query de
+	 * insertarlo en la Tabla Cliente.
+	 */
 	public void añadirFilaCliente(Cliente cliente) {
 		
 		String SQL = "INSERT INTO Cliente(DNI,Nombre,Apellidos,Edad,Correo,Telefono) "
@@ -456,6 +466,9 @@ public class DBF {
 		
 	}
 	
+	/* Metodo que ,pasandole una reserva como parametro de entrada, realiza la query de
+	 * insertarlo en la Tabla Reserva.
+	 */
 	public void añadirReserva(Reserva reserva) {
 		
 		String SQL = "INSERT INTO Reserva(codigo,precio,DNI_cliente,fecha_entrada,fecha_salida,fecha_reserva) "
@@ -480,6 +493,9 @@ public class DBF {
         }
 	}
 	
+	/* Metodo que ,pasandole una reserva y una lista de habitciones como parametros de entrada, realiza la query de
+	 * insertarlos en la Tabla Habi_Reser.
+	 */
 	public void añadirReserva_Habi(Reserva reserva, List<Habitacion> habi) {
 		
 		String SQL = "INSERT INTO Habi_Reser(numero,codigo_reser) "
@@ -505,6 +521,9 @@ public class DBF {
         }
 	}
 	
+	/* Metodo que realiza la query de alterar el valor de la variable precio 
+	 * de una reserva. 
+	 */
 	public void modificiarPrecio(Reserva reserva, double precio) {
 		
 		String sql = "update Reserva "
@@ -524,6 +543,9 @@ public class DBF {
         }
 	}
 	
+	/* Metodo que realiza la query de cabiar la variable disponi de la 
+	 * Habitacion que se le pasa como parametro al valor que que tien ocu. 
+	 */
 	public void estadoHabi(Habitacion habi, boolean ocu) {
 		
 		int e = ocu ? 0 : 1;
@@ -544,8 +566,28 @@ public class DBF {
             System.out.println(ex.getMessage());
         }
 	}
+	
+	/* Metodo que realiza la query de eliminar la reserva que se le pasa como parametro de entrada 
+	 * de la tabla de Reserva.
+	 */
+	public void eliminarReserva(Reserva reserva) {
+		
+		String sql = "delete from Reserva where codigo = ?";
+		
+		try (PreparedStatement pstmt = konexioa.prepareStatement(sql)) {
+			
+			pstmt.setString(1, reserva.generarCodigo());
+            pstmt.executeUpdate();
+		
+            System.out.println("Linea cambiada");
+        
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+		
+	}
 
 	
 	
-} // end class
+} 
 

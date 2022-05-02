@@ -32,6 +32,9 @@ public class WindowMenu implements ActionListener {
 		mostrarMenu();
 	}
 	
+	/* Metodo que muestra el menu del hotel. En esta caso, solo funciona el primer
+	 * caso de uso donde se raliza una reserva y el boton de salir.
+	 */
 	public void mostrarMenu() {
 		
 		frame = new JFrame("Hotel Tricaro");
@@ -67,6 +70,7 @@ public class WindowMenu implements ActionListener {
 		
 	}
 	
+	/* Metodo que registra la accion realiza por el usuario en la ventana anterior. */
 	public void actionPerformed(ActionEvent click) {
 		switch(click.getActionCommand()) {
 			

@@ -11,9 +11,11 @@ public class Habitacion {
 	private LocalDateTime fecha_salida;
 	private Boolean ocupado;
 	private String descripcion;
-	private Tamaño tamaño;
 	private String nombre_hotel;
 	
+	/* Constructor que crea una habitacion. En este caso, para saber si esta ocupada o no, recibimos 
+	 * un entero (1 o 0) y lo convertimos a booleano
+	 */
 	public Habitacion(String numero, String tipo, double precio, int ocu, String nombre_hotel) {
 		this.numero = numero;
 		this.tipo = tipo;

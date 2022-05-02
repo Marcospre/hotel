@@ -22,10 +22,11 @@ public class InfoReserva {
 		mostarMenu();
 	}
 	
+	/* Metodo que muestra la pantalla de informacion de la reserva realizada por el cliente */
 	public void mostarMenu() {
 		
 		JFrame ventana = new JFrame("Reserva");
-		ventana.setBounds(100, 100, 700, 300);
+		ventana.setBounds(100, 100, 700, 600);
 		ventana.getContentPane().setLayout(new GridLayout(7, 2, 10, 10));
 		ventana.setLocationRelativeTo(null);
 		
@@ -69,10 +70,10 @@ public class InfoReserva {
 		txtPrecio.setBackground(Color.WHITE);
 		ventana.getContentPane().add(txtPrecio);
 		
-		JTextArea habis  =new JTextArea("jajajajajajaja\r\njajajajajajaj");
-		habis.setRows(2);
+		JTextArea habis  =new JTextArea(40,20);
+		habis.setText(miReserva.contarHabi());
 		habis.setBackground(Color.WHITE);
-		habis.setTabSize(20);
+		//habis.setTabSize(20);
 		ventana.getContentPane().add(habis);
 		
 		ventana.setVisible(true);

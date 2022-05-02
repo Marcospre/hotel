@@ -25,26 +25,6 @@ public class Trabajador extends Persona {
 		return this.id;
 	}
 	
-	public void realizarReserva(Hotel hotel,Trabajador recep, Cliente cliente) {
-		Reserva nuevaReserva;
-		String tipo;
-		int numero;
-		List<Habitacion> habReser = null;
-		
-		tipo = JOptionPane.showInputDialog("Tipo de Habitacion:");
-		numero = Integer.parseInt(JOptionPane.showInputDialog("Nº Habitaciones:"));
-		
-		if(hotel.comprobarHabitacion(tipo,numero)) {
-			
-			hotel.getHabitacion(tipo,numero,habReser);
-			nuevaReserva = new Reserva(cliente.getDNI(),habReser);
-			hotel.misReservas.add(nuevaReserva);
-		}else {
-			JOptionPane.showMessageDialog(null, "Habitaciones ocupadas");
-		}
-		
-	}
-	
 	public boolean getOcupado() {
 		return ocupado;
 	}

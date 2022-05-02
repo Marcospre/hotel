@@ -41,6 +41,7 @@ public class NuevoCliente implements ActionListener {
 		mostrarMenu();
 	}
 	
+	/* Metodo que muestra la pantalla donde el cliente va a insertar sus datos */
 	public void mostrarMenu() {
 		ventana = new JFrame("Datos Cliente");
 		ventana.setBounds(100, 100, 700, 300);
@@ -83,6 +84,11 @@ public class NuevoCliente implements ActionListener {
 	
 	}
 	
+	/* Metodo que registra la accion realizada por el usuario. Si clica el boton aceptar, 
+	 * se generara un nuevo cliente y este se guardara en la base de datos. A continuacion,
+	 * se habrira la proxima ventana de reserva. En caso de cancelar, se cierra la ventana sin
+	 * registrar nada.
+	 */
 	public void actionPerformed(ActionEvent click) {
 		switch(click.getActionCommand()) {
 			
