@@ -208,15 +208,23 @@ public class RealizarReserva implements ActionListener {
 				if(bIndi.getActionCommand().equals("") && bDobl.getActionCommand().equals("") && bFami.getActionCommand().equals("") && bLujo.getActionCommand().equals("")) {
 					throw new Exception("Inserte algun valor");
 				}
+				
+				if(!bIndi.isSelected() && !bDobl.isSelected() && !bFami.isSelected() && !bLujo.isSelected()) {
+					throw new Exception("Reserve alguna habitacion para continuar");
+				}
 			
 				SimpleDateFormat fmonth = new SimpleDateFormat("MM");             
-				Pattern numero_formato = Pattern.compile("^[0-9]$");
+				Pattern numero_formato = Pattern.compile("[0-9]+");
 				
 				//LocalDate time_entrada = LocalDate.of(Integer.parseInt(anio_e.getText()), Integer.parseInt(mes_e.getText()), Integer.parseInt(dia_e.getText()));
 				//LocalDate time_salida = LocalDate.of(Integer.parseInt(anio_s.getText()), Integer.parseInt(mes_s.getText()), Integer.parseInt(dia_s.getText()));
 				
 				LocalDate time_entrada = calendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate time_salida = calendar_1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				
+				if(time_salida.compareTo(time_entrada) < 0) {
+					throw new Exception("La fecha de salida no puede ser menor que la de entrada");
+				}
 				
 				Reserva nuevaReserva = new Reserva(cliente.getDNI(),new LinkedList<Habitacion>(), time_entrada, time_salida);
 				System.out.println(nuevaReserva.mostrarInfo());
@@ -266,7 +274,7 @@ public class RealizarReserva implements ActionListener {
 				InfoReserva inforeser = new InfoReserva(nuevaReserva);
 				ventana.dispose();
 			}catch(Exception e) {
-				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			
 			break;
@@ -299,4 +307,6 @@ public class RealizarReserva implements ActionListener {
 				throw new Exception("Habitaciones ocupadas");
 			}
 	}
+	
+	
 }
