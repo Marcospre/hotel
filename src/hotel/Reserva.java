@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -93,14 +94,17 @@ public class Reserva {
 	public double calcularPrecio() {
 		double total = 0;
 		
+		int dias = (int) fecha_entrada.until(fecha_salida, ChronoUnit.DAYS);
+		
 		for(int i=0; i < habitacion_reserva.size(); i++) {
-			total = total + habitacion_reserva.get(i).getPrecio();
+			total = total + habitacion_reserva.get(i).getPrecio()*dias;
 		}
 		
 		return total;
 		
 	}
 	
+
 	/* Metodo que añade una habitacion a la lista de habitaciones reservadas */
 	public void addHabitacion(Habitacion nueva) {
 		this.habitacion_reserva.add(nueva);

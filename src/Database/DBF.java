@@ -67,10 +67,10 @@ public class DBF {
 	            case 3://oracle	            	
 	              
 	            	//URL of Oracle database server
-	                String url = "jdbc:oracle:thin:@91.200.117.27:49161:xe";       
+	                String url = "jdbc:oracle:thin:@192.168.100.198:49161:xe";       
 	                Properties props = new Properties();
-	                props.setProperty("user", "MARCOS");
-	                props.setProperty("password", "plaiaundi");
+	                props.setProperty("user", "system");
+	                props.setProperty("password", "oracle");
 	              
 	                //creating connection to Oracle database 
 	              
