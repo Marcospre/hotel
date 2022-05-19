@@ -73,7 +73,6 @@ public class InfoReserva {
 		JTextArea habis  =new JTextArea(40,20);
 		habis.setText(miReserva.contarHabi());
 		habis.setBackground(Color.WHITE);
-		//habis.setTabSize(20);
 		ventana.getContentPane().add(habis);
 		
 		ventana.setVisible(true);

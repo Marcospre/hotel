@@ -137,10 +137,9 @@ public class DBF {
 				String edad = resultSet.getString(4);
 				String email = resultSet.getString(5);           
 				String Telefono = resultSet.getString(6);
-				String ID_trabaja = resultSet.getString(7);
 	      
 	  
-			  cliente = new Cliente (DNI,Nombre, Apellidos, email, edad, Telefono, ID_trabaja);        
+			  cliente = new Cliente (DNI,Nombre, Apellidos, email, edad, Telefono);        
 			  ListaClientes.add(cliente);  
 	      
 	          

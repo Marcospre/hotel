@@ -144,13 +144,7 @@ public class RealizarReserva implements ActionListener {
 		
 		FlowLayout fl_panelFechaentrada = new FlowLayout();
 		panelFechaentrada.setLayout(fl_panelFechaentrada);
-		/*panelFechaentrada.add(dia_e);
-		panelFechaentrada.add(new JLabel("/"));
-		panelFechaentrada.add(mes_e);
-		panelFechaentrada.add(new JLabel("/"));
-		panelFechaentrada.add(anio_e);*/
 
-		
 		
 		fechas.add(panelFechaentrada);
 		panelFechaentrada.add(calendar);
@@ -163,12 +157,6 @@ public class RealizarReserva implements ActionListener {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		fechas.add(label_1);
 		
-		/*panelFechasalida.setLayout(new FlowLayout());
-		panelFechasalida.add(dia_s);
-		panelFechasalida.add(new JLabel("/"));
-		panelFechasalida.add(mes_s);
-		panelFechasalida.add(new JLabel("/"));
-		panelFechasalida.add(anio_s);*/
 		
 		fechas.add(panelFechasalida);
 		
@@ -215,9 +203,6 @@ public class RealizarReserva implements ActionListener {
 			
 				SimpleDateFormat fmonth = new SimpleDateFormat("MM");             
 				Pattern numero_formato = Pattern.compile("[0-9]+");
-				
-				//LocalDate time_entrada = LocalDate.of(Integer.parseInt(anio_e.getText()), Integer.parseInt(mes_e.getText()), Integer.parseInt(dia_e.getText()));
-				//LocalDate time_salida = LocalDate.of(Integer.parseInt(anio_s.getText()), Integer.parseInt(mes_s.getText()), Integer.parseInt(dia_s.getText()));
 				
 				LocalDate time_entrada = calendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate time_salida = calendar_1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -301,7 +286,7 @@ public class RealizarReserva implements ActionListener {
 					dbf.estadoHabi(habi.get(i), true);
 				}
 				
-				//miHotel.misReservas.add(nuevaReserva);
+		
 			}else {
 				dbf.eliminarReserva(reser);
 				throw new Exception("Habitaciones ocupadas");

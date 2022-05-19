@@ -30,8 +30,6 @@ public class Reserva {
 		this.precio = precio;
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = codigo;
-		//this.fecha_entrada = (Date) fecha_entrada2;
-		//this.fecha_salida = (Date) fecha_salida2;
 		this.fecha_entrada = fecha_entrada2;
 		this.fecha_salida = fecha_salida2;
 		this.habitacion_reserva = new LinkedList<Habitacion>();
@@ -40,7 +38,6 @@ public class Reserva {
 	public Reserva(String codigo_cliente,List<Habitacion> habi_reserva, LocalDate fecha_e, LocalDate fecha_s) {
 		this.habitacion_reserva = habi_reserva; 
 		this.fecha_reserva = LocalDate.now();   
-		///this.precio = calcularPrecio();
 		this.codigo_cliente = codigo_cliente;
 		this.codigo = generarCodigo();
 		this.fecha_entrada = fecha_e;

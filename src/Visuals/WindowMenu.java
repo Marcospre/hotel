@@ -83,6 +83,7 @@ public class WindowMenu implements ActionListener {
 				
 			case "Salir":
 				frame.dispose();
+				System.exit(0);
 				break;
 		}
 	}
